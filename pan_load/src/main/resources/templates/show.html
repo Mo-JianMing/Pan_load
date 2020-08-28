@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>展示</title>
+</head>
+<h1 style="color: dodgerblue">Welcome：
+    <span th:if="${session.user} ne null" th:text="${session.user.name}"/>
+</h1>
+<table border="1px">
+    <tr>
+        <th>文件名</th>
+        <th>大小</th>
+        <th>创建日期</th>
+        <th>功能</th>
+    </tr>
+    <tr th:each="file:${files}">
+        <td>
+            <span th:text="${file.fileName}"></span>
+        </td>
+        <td>
+            <span th:text="${file.size}"></span>
+        </td>
+        <td>
+            <!--日期格式化-->
+            <span th:text="${#dates.format(file.CDate,'yyyy-MM-dd HH:mm:ss')}"></span>
+        </td>
+        <td>
+            <a target="_blank" th:href="@{downLoad(tp='inline',fileName=${file.fileName},user=${file.user})}">预览</a>
+            <a th:href="@{downLoad(fileName=${file.fileName},user=${file.user})}">下载</a>
+            <a th:href="@{delete(fileName=${file.fileName},user=${file.user})}">删除</a>
+        </td>
+    </tr>
+</table>
+<br>
+<form th:if="${session.user} ne null" th:action="@{upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="上传">
+</form>
+<br>
+<a href="/">首页</a>
+
+</body>
+</html>

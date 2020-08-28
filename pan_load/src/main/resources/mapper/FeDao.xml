@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mj.pan_load.dao.FeDao">
+    <insert id="save" parameterType="Fe">
+        insert into file values (#{fileName},#{size},#{user},#{cDate})
+    </insert>
+    <select id="sAll" resultType="Fe">
+        select * from file where file.user = #{user}
+    </select>
+    <delete id="delete" parameterType="java.lang.String">
+        delete from file where fileName = #{fileN} and file.user = #{userN}
+    </delete>
+</mapper>
